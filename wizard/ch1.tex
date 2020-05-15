@@ -1,9 +1,16 @@
-\documentclass[fleqn]{article}
+\documentclass{article}
 \usepackage{listings}
 \usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[a4paper,bindingoffset=0.2in,%
             left=1in,right=1in,top=1in,bottom=1in,%
             footskip=.25in]{geometry}
+\usepackage{courier}
+
+\lstset{basicstyle=\ttfamily,breaklines=true}
+\lstMakeShortInline[columns=fixed]~
+
 \begin{document}
 \section{Chapter 1: Building Abstractions with Procedures}
 
@@ -94,7 +101,7 @@ The procedure sums $a$ with the absolute value of $b$.
 
 % 1.5
 \subsection{}
-Ben Bitdiddle has invented a test to determine whether the interpreter he is faced with is using applicative-order evaluation or normal-order evaluation. He defines the following procedures:
+Comment on the differences between applicative and normal-order evaluation of the following:
 \begin{lstlisting}
 (define (p) (p))
 
@@ -102,12 +109,215 @@ Ben Bitdiddle has invented a test to determine whether the interpreter he is fac
     (if (= x 0)
     0
     y))
-\end{lstlisting}
-Then he evaluates the expression
-\begin{lstlisting}
+
 (test 0 (p))
 \end{lstlisting}
-What behavior will Ben observe with an interpreter that uses applicative-order evaluation? What behavior will he observe with an interpreter that uses normal-order evaluation?\\ \\
-Applicative-order will recurse into infinity as the condition's alternative, (p), evaluated. Normal order will defer calculation of (p) and instead return the condition's consequent 0 as $x == 0$ is evaluated first.
+Applicative-order will recurse into infinity as the condition's alternative, ~(p)~, evaluated. Normal order will defer calculation of ~(p)~ and instead return the condition's consequent ~0~ as ~x == 0~ is evaluated first.
+
+% 1.6
+\subsection{}
+Given:
+\begin{lstlisting}
+(define (improve guess x)
+    (average guess (/ x guess)))
+
+(define (average x y)
+    (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+    (< (abs (- (square guess) x)) 0.001))
+\end{lstlisting}
+Comment on the implementation with ~new-if~:
+\begin{lstlisting}
+(define (new-if predicate then-clause else-clause)
+    (cond (predicate then-clause)
+    (else else-clause)))
+
+(define (sqrt-iter guess x)
+    (new-if (good-enough? guess x)
+    guess
+    (sqrt-iter (improve guess x) x)))
+\end{lstlisting}
+The special form for ~if~ does not evaluate the ~else-clause~, whereas in ~new-if~ the ~else-clause~ is evaluated in applicative-order, so the program recurses infinitely with closer and closer x values. (This resembles \textbf{1.5})
+
+\pagebreak
+% 1.7
+\subsection{}
+Explain why the ~good-enough?~ criterium from \textbf{1.6} is not good for computing roots for small and large numbers. Design an alternative criterium that instead checks how much ~guess~ changes from iteration to iteration.\\ \\
+Hard-coding the value ~0.001~ will not be appropriate for different degrees of magnitude of the root we are trying to estimate. For example, given a radicand of 0.0001, the program will return 0 as an acceptable guess. With a very large radicand, it is possible that floating point operations necessarily "overshoot" the acceptable bound, even if our guess is the true root - that is, after squaring both, the loss of precision may make it impossible to have a difference whose absolute magnitude falls bellow the arbitrary ~0.001~. Assuming that the root-finding method converges after infinite iterations:
+\begin{lstlisting}
+(define (better-good-enough? previous-guess guess)
+    (< (abs (/ (- previous-guess guess) guess)) 0.001))
+
+(define (sqrt-iter guess x)
+    (define (-sqrt-iter previous-guess guess x)
+        (if (better-good-enough? previous-guess guess)
+            guess
+            (-sqrt-iter guess (improve guess x) x)))
+    ; arbitrarily set to 2x on first iteration to not
+    ; divide by 0 or be considered a "close" guess
+    (-sqrt-iter (* 2 guess) guess x))
+\end{lstlisting}
+
+% 1.8
+\subsection{}
+Newton's method for cube roots is based on the fact that if $y$ is an approximation of the cube root of $x$, then a better approximation is given by the value
+\[ \frac{x/y^2 + 2y}{3} \]
+Implement a cube-root procedure analogous to the square root one.
+\begin{lstlisting}
+(define (improve guess x)
+    (/ (+ (/ x (* guess guess)) (* 2 guess)) 3))
+
+(define (qbrt-iter guess x)
+    (define (-qbrt-iter previous-guess guess x)
+        (if (better-good-enough? previous-guess guess)
+            guess
+            (-qbrt-iter guess (improve guess x) x)))
+    (-qbrt-iter (* 2 guess) guess x))
+\end{lstlisting}
+
+\pagebreak
+% 1.9
+\subsection{}
+The following two procedures defines a method for adding two positive integers in terms of the procedures ~inc~, which increments its argument by 1, and ~dec~, which decreases its argument by 1.
+\begin{lstlisting}
+(define (+ a b)
+    (if (= a 0)
+        b
+        (inc (+ (dec a) b))))
+
+(define (+ a b)
+    (if (= a 0)
+        b
+        (+ (dec a) (inc b))))
+\end{lstlisting}
+Illustrate the process generated by each procedure in evaluating ~(+ 4 5)~. Are these procedures iterative or recursive?
+\begin{multicols}{2}
+\begin{lstlisting}
+(+ 4 5)
+(inc (+ 3 5))
+(inc (inc (+ 2 5)))
+(inc (inc (inc (+ 1 5))))
+(inc (inc (inc (inc (+ 0 5)))))
+(inc (inc (inc (inc 5))))
+(inc (inc (inc 6)))
+(inc (inc 7))
+(inc 8)
+9
+\end{lstlisting}
+\columnbreak
+\begin{lstlisting}
+(+ 4 5)
+(+ 3 6)
+(+ 2 7)
+(+ 1 8)
+(+ 0 9)
+9
+\end{lstlisting}
+\end{multicols}
+First is recursive, second iterative.
+
+% 1.10
+\subsection{}
+The following procedure computes Ackermann's function:
+\begin{lstlisting}
+(define (A x y)
+    (cond ((= y 0) 0)
+          ((= x 0) (* 2 y))
+          ((= y 1) 2)
+          (else (A (- x 1)
+                   (A x (- y 1))))))
+\end{lstlisting}
+Consider the following procedures:
+\begin{lstlisting}
+(define (f n) (A 0 n))
+(define (g n) (A 1 n))
+(define (h n) (A 2 n))
+\end{lstlisting}
+Give concise mathematical definitions for each.
+\begin{align}
+    f(n) &= 2n \\
+    g(n) &= 2^n \\
+    h(n) &= 2^{h(n-1)}
+\end{align}
+
+\pagebreak
+% 1.11
+\subsection{}
+A function $f$ is defined by the rule that $f(n) = n$ if $n < 3$ and $f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3)$ if $n \geq 3$. Write a procedure that computes $f$ with by means of a recursive process. Write a procedure that computes $f$ with by means of an iterative process.
+\begin{lstlisting}
+(define (recur-f n)
+    (if (< n 3)
+        n
+        (+ (recur-f (- n 1))
+           (* 2 (recur-f (- n 2)))
+           (* 3 (recur-f (- n 3)))
+        )))
+
+(define (iter-f n)
+    (define (-iter-f a b c k)
+        (if (= k 0)
+            a
+            (-iter-f (+ a (* 2 b) (* 3 c)) a b (- k 1))))
+    (if (< n 3)
+        n
+        (-iter-f 2 1 0 (- n 2))))
+\end{lstlisting}
+
+% 1.12
+\subsection{}
+Write a procedure that computes elements of Pascal's triangle by means of a recursive process.
+\begin{lstlisting}
+(define (p-tri i j)
+    (cond ((or (< j 0) (< i 0) (> j i)) 0)
+          ((= i 0) 1)
+          (else (+ (p-tri (- i 1) (- j 1))
+                   (p-tri (- i 1) j)))))
+\end{lstlisting}
+
+% 1.13
+\subsection{}
+Prove that $Fib(n)$ is the closest integer to $\phi^n/\sqrt{5}$, where $\phi = (1 + \sqrt{5})/2$.\\ \\
+Let $\psi = (1 - \sqrt{5})/2$. Show that $Fib(n) = (\phi^n - \psi^n)/\sqrt{5}$.\\
+For the base case of $n = 1$, $(\phi - \psi)/\sqrt{5} = (\frac{(1 + \sqrt{5})}{2} - \frac{(1 - \sqrt{5})}{2}))/\sqrt{5} = (\frac{2\sqrt{5}}{2})/\sqrt{5} = 1 = Fib(1)$.\\
+Show that $(\phi^{n+1} - \psi^{n+1})/\sqrt{5} = (\phi^n - \psi^n)/\sqrt{5} + (\phi^{n-1} - \psi^{n-1})/\sqrt{5}$.
+\begin{align}
+\phi^{n+1} - \psi^{n+1} &= (\phi^n - \psi^n) + (\phi^{n-1} - \psi^{n-1})\\
+\phi^{n+1} - \psi^{n+1} &= (1 + 1/\phi)\phi^n - (1 + 1/\psi)\psi^n\\
+(\phi - 1 - 1/\phi)\phi^n &= (\psi - 1 - 1/\psi)\psi^n\\
+\phi - 1 - 1/\phi &= \frac{-1 + \sqrt{5}}{2} - \frac{2}{1 + \sqrt{5}}\\
+                  &= \frac{5 - 1 - 4}{2(1 + \sqrt{5})} = 0\\
+\psi - 1 - 1/\psi &= \frac{-1 - \sqrt{5}}{2} - \frac{2}{1 - \sqrt{5}}\\
+                  &= \frac{5 - 1 - 4}{2(1 + \sqrt{5})} = 0\\
+0(\phi^n) &= 0(\psi^n)
+\end{align}
+To show that $Fib(n)$ is the closest integer to $\phi^n/\sqrt{5}$, rewrite $\phi^n/\sqrt{5} = Fib(n) + \psi^n/\sqrt{5}$. If $|\psi^n/\sqrt{5}| \leq |\psi/\sqrt{5}| < \frac{1}{2}$, $Fib(n)$ is the closest integer to $\phi^n/\sqrt{5}$. Square to show $\frac{3-\sqrt{5}}{10} < \frac{1}{4}$. Since $2 < \sqrt{5} < 3$, $\frac{3-\sqrt{5}}{10} < \frac{1}{10} < \frac{1}{4}$. $\blacksquare$
+
+% 1.14
+\subsection{}
+What are the orders of growth in space and the number of steps as the cent input grows in the ~count-change~ procedure?\\ \\
+TODO
+
+% 1.15
+\subsection{}
+The sine of an angle (specified in radians) can be computed by making use of the approximation $\sin{x} \approx x$ if $x$ is sufficiently small, and by the trigonometric identity
+\[ \sin{x} = 3\sin{\frac{x}{3}} - 4\sin^3\frac{x}{3} \]
+to reduce the argument of $\sin$.
+Consider the following procedure for estimating $\sin{x}$:
+\begin{lstlisting}
+(define (cube x) (* x x x))
+
+(define (p x) (- (* 3 x) (* 4 (cube x))))
+
+(define (sine angle)
+    (if (not (> (abs angle) 0.1))
+    angle
+    (p (sine (/ angle 3.0)))))
+\end{lstlisting}
+a. How many times is the procedure ~p~ applied when ~(sine 12.15)~ is evaluated?\\ \\
+5 times ($12.15 / 3^4 > 0.1$, $12.15 / 3^5 < 0.1$).\\ \\
+b. What is the order of growth in space and number of steps as a function of $a$ generated by the ~sine~ procedure when ~(sine a)~ evaluated?\\ \\
+Each time $a$ triples, we need to invoke ~sine~ one more time, so the growth in number of steps of ~sine~ is $\Theta(\log_3 a) = \Theta(\log a)$. For each subsequent step, size increases constantly (another application of ~p~ in the call stack), so the growth in size is also $\Theta(\log a)$.\\ \\
+More specifically, $T(a)$ is the number of steps required if it is the smallest integer s.t. $1 = \lceil(\frac{a}{0.1}) / 3^{T(a)}\rceil$. So, $1 \ge (\frac{a}{0.1}) / 3^{T(a)} \rightarrow 3^{T(a)} \ge a/0.1 \rightarrow T(a) \ge \log_3(a/0.1) = \log_3(a) - \log_3(0.1) \ge k_2\log(a)$ for some $k_2$. Since $T(a)$ is the smallest integer that fulfils the conditions, $1 < (\frac{a}{0.1}) / 3^{T(a) - 1} \rightarrow T(a) < \log_3(a/0.1) + 1 \le k_1\log(a)$ for some $k_1$. Finally, $k_1 \log(a) \ge T(a) \ge k_2 \log(a) \rightarrow T(a) = \Theta(log(a))$.
 \end{document}
 EOF
