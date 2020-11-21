@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+\usepackage{courier}
+
+
+\begin{document}
+
+\title{Chapter 5}
+
+\section{Easy}
+
+% 1.1
+\subsection{}
+In the model definition below, which line is the likelihood?
+\begin{gather}
+    y_i \sim \mathcal{N}(\mu, \sigma) \\
+    \mu \sim \mathcal{N}(0, 10) \\
+    \sigma \sim Exp(1)
+\end{gather}
+$y_i$ is the likelihood.
+
+% 1.2
+\subsection{}
+In the model definition just above, how many parameters are in the posterior distribution? \\~\\
+Two, $\mu$ and $\sigma$.
+
+% 1.3
+\subsection{}
+Using the model definition above, write down the appropriate form of Bayes’ theorem
+that includes the proper likelihood and priors.
+\begin{gather}
+    Pr(\mu, \sigma|y) = 
+    \frac{\Pi_i \mathcal{N}(y|\mu, \sigma) * \mathcal{N}(\mu|0, 10) * Exp(\sigma|1)}
+    {\int \int \Pi_i \mathcal{N}(y|\mu, \sigma) * \mathcal{N}(\mu|0, 10) * Exp(\sigma|1) d\mu d\sigma}
+\end{gather}
+
+% 1.4
+\subsection{}
+In the model definition below, which line is the linear model?
+\begin{gather}
+    y_i \sim \mathcal{N}(\mu, \sigma) \\
+    \mu_i = \alpha + \beta x_i \\
+    \alpha \sim \mathcal{N}(0, 10) \\
+    \beta \sim \mathcal{N}(0, 1) \\
+    \sigma \sim Exp(2)
+\end{gather}
+The line $\mu_i = \alpha + \beta x_i$ specifies the linear model.
+
+% 1.5
+\subsection{}
+In the model definition just above, how many parameters are in the posterior distribution? \\~\\
+Three - $\alpha$, $\beta$ and $\sigma$.
+
+% 1.5
+\subsection{}
+Translate the quap model formula below into a mathematical model definition.
+\begin{lstlisting}
+    flist <- alist(
+      y ~ dnorm( mu , sigma ), mu <- a + b*x,
+      a ~ dnorm( 0 , 10 ),
+      b ~ dunif( 0 , 1 ), sigma ~ dexp( 1 )
+    )
+\end{lstlisting}
+\begin{gather}
+    y_i \sim \mathcal{N}(\mu, \sigma) \\
+    \mu_i = \alpha + \beta x_i \\
+    \alpha \sim \mathcal{N}(0, 10) \\
+    \beta \sim \mathcal{U}(0, 1) \\
+    \sigma \sim Exp(2)
+\end{gather}
+
+% 1.5
+\subsection{}
+A sample of students is measures for height each year for 3 years. After the third year,
+you want to fit a linear regression predicting height using year as a predictor. Write
+down the mathematical model definition for this regression, using any variable names
+and priors you choose. Be prepared to defend your choice of priors.
+
+\begin{gather}
+    h_i \sim \mathcal{N}(\mu, \sigma) \\
+    \mu_i = \alpha + e^\beta x_i \\
+    \alpha \sim \mathcal{N}(165, 30) \\
+    \beta \sim \mathcal{N}(0, 10) \\
+    \sigma \sim \mathcal{U}(0, 20) \\
+\end{gather}
+I'm assuming the question implies we are only interested in predicting year 3 growth for
+these adolescents during a stage in life in which they are growing; otherwise one might
+prefer an asymptotically flat curve or maybe a multi stage to account for shrinking in
+late age. But, to keep it simple and in line with the material covered in the chapter,
+I choose a linear regression; $\alpha$ should correspond to the mean marginal height of
+the students; I'm guessing this is around 155 but I leave a wide variance to account for
+the little information we have about these students. Since they are "students," I
+assume they are not in the shrinking phase of life and model with log-normal $\beta$
+which prevents negative growth over years, but use 0 as the mean for $\beta$ because
+they may be older students, in which case they wouldn't grow that much.
+
+% 1.5
+\subsection{}
+Now suppose I remind you that every student got taller each year.
+Does this information lead you to change your choice of priors? How? \\~\\
+I would be inclined to set a higher mean for $\beta$ than 0.
+
+% 1.5
+\subsection{}
+Now suppose I tell you that the variance among heights for students of the same age is
+never more than 64cm. How does this lead you to revise your priors? \\~\\
+I would go for $\sigma \sim \mathcal{U}(0, 8)$, bounding $\sigma^2$ at 64.
+
+
+\end{document}
+EOF
