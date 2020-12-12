@@ -1,0 +1,202 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+\begin{document}
+
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{3. Linear Diophantine Equations}
+\section{Exercises}
+
+% 1
+\subsection{}
+Why does $2x + 4y = 5$ have no integer solutions?\\~\\
+The smallest possible $x, y$ solution is $1, 1$.
+$2*1 + 4*1 = 6 > 5$.
+Any greater $x, y$ will produce an integer greater than $5$.
+
+% 2
+\subsection{}
+Find by inspection a solution of $x + 5y = 10$ and use it to write five
+other solutions.\\~\\
+$x = 5, y = 1$ is such a solution.
+5 others are $(15, -1), (20, -2), (25, -3), (30, -4), (35, -5)$.
+
+% 3
+\subsection{}
+Which of the following linear diophantine equations is impossible?\\
+\textbf{(a)} $14x + 34y = 90$.\\
+\textbf{(b)} $14x + 35y = 91$.\\
+\textbf{(c)} $14x + 36y = 93$.\\~\\
+\textbf{(c)} is the only one for which $(a, b) \nmid c$.
+
+% 4
+\subsection{}
+Find all solutions of $2x + 6y = 20$.\\~\\
+This is the same as solutions of $x + 3y = 10$.
+By inspection, we have $x = 7, y = 1$ as a solution.
+So, the solutions are $x = 7 + 3t$ and $y = 1 - t$.
+
+% 5
+\subsection{}
+Find all the solutions of $2x + 6y = 18$ in \textit{positive} integers.\\~\\
+Solutions of the equation are $x = 9 + 3t, y = -t$.
+To have $x, y \in \Z^+$, we must have $-3 < t < 0$, i.e. $t \in \{-2, -1\}$.
+So, $x = 3, y = 2$, $x = 6, y = 1$ are all the positive integer solutions.
+
+
+\section{Problems}
+
+% 1
+\subsection{}
+Find all the integer solutions of $x + y = 2$, $3x - 4y = 5$, and $15x + 16y = 17$.\\~\\
+$x = 1 + t, y = 1 - t$.\\
+$x = 3 - 4t, y = 1 - 3t$.\\
+$x = -17 + 16t, y = 17 - 15t$.
+
+% 2
+\subsection{}
+Find all the integer solutions of $2x + y = 2$, $3x - 4y = 0$, and $15x + 18y = 17$.\\~\\
+$x = 1 + t, y = -2t$.\\
+$x = 4t, y = 3t$.\\
+There are none, since $(18, 15) = 3, 3 \nmid 17$.
+
+% 3
+\subsection{}
+Find all the integer solutions in positive integers of $x + y = 2$,
+$3x - 4y = 5$, and $6x + 15y = 51$.\\~\\
+$x = 1 + t, y = 1 - t$. These are positive for $t = 0$, so $x = 1, y = 1$.\\
+$x = 3 - 4t, y = 1 - 3t$. These are positive for all $t \geq 0$.\\
+$x = 1 + 5t, y = 3 - 2t$. These are positive for $t \in \{0, 1\}$,
+so $x = 1, 6$, $y = 3, 1$ are the only solutions $\ni x, y \in \Z^+$.
+
+% 4
+\subsection{}
+Find all the integer solutions in positive integers of $2x + y = 2$,
+$3x - 4y = 0$, and $7x + 15y = 51$.\\~\\
+$x = 1 + t, y = -2t$. These are not both positive for any $t$.\\
+$x = 4t, y = 3t$. These are positive for all $t > 0$.\\
+$x = 3 + 15t, y = 2 - 7t$. These are positive only when $t = 0$, i.e. $x = 3, y = 2$.
+
+% 5
+\subsection{}
+Find all the positive solutions in integers of
+\begin{align}
+    x + y + z &= 31,\\
+    x + 2y + 3z &= 41
+\end{align}
+
+Subtracting the two equations, have $2x + y = 52$.
+Positive solutions for this equation are $x = 25 + t, y = 2 - 2t$.
+Using these in the first equation, $(25 + t) + (2 - 2t) + z = 31$,
+implying $z = 4 + t$.
+$x, y, z \in \Z^+$ when $t \in [-3, 0]$.
+So, positive solutions to the equation are
+$x = 22, 23, 24, 25, y = 8, 6, 4, 2, z = 1, 2, 3, 4$.
+
+% 6
+\subsection{}
+Find the five different ways a collection of 100 coins - pennies, dimes, and
+quarters- can be worth exactly \$4.99.\\~\\
+The solutions to this must satisfy
+\begin{align}
+    p + d + q &= 100,\\
+    p + 10d + 25q &= 499
+\end{align}
+Subtracting the two, have $3d + 8q = 133$.
+By inspection have a solution to this when $d = 15 + 8t$, $q = 11 - 3t$.
+Using the first equation, $p + (15 + 8t) + (11 - 3t) = 100$.
+So, must have p in the form of $74 - 5t$.
+$p, d, q \in \Z^+$ when $t \in [-1, 3]$.
+This is true for $p = 79, 74, 69, 64, 59, d = 7, 15, 23, 31, 39, q = 14, 11, 8, 5, 2$.
+
+
+% 7
+\subsection{}
+A man bought a dozen pieces of fruit-apples and oranges-for 99 cents.
+If an apple costs 3 cents more than an orange, and he bought more apples
+than oranges, how many of each did he buy?\\~\\
+The solutions to this must satisfy
+\begin{align}
+    a + o &= 12\\
+    (x + 3)a + xo &= 99
+\end{align}
+Rewriting the second equation, have $xa + xo + 3a = 12x + 3a = 99 \Rightarrow a = 33 - 4x$.
+We know that the fruit probably is not free, so $x > 0$, and the number of apples
+purchased is must be at least 7.
+So feasible values for $x$ must be between 1 and 6.
+We also can plug this into the firust equation to get $33 - 4x + o = 12$,
+which can be rewritten as $4x - o = 21$.
+Since the number of oranges purchased is also non-negative, we can reject all $x$
+such that $4x \leq 21$, that is, all $x \in [1, 5]$,
+leaving us with viable $x = 6$. So, 9 apples and 3 oranges were purchased.
+
+% 8
+\subsection{}
+The enrollment in a number theory class consists of sophomores, juniors, and
+backwards seniors. If each sophomore contributes \$1.25, each junior contributes
+\$.90 and each senior \$.50, the instructor will have a fund of \$25.
+There are 26 students; how many of each?\\~\\
+The solutions to this must satisfy
+\begin{align}
+    x + y + z &= 26\\
+    125x + 90y + 50z &= 2500
+\end{align}
+Where $x, y, z$ denote sophomores, juniors, and seniors, respectively.
+We can rewrite the bottom equation as $25x + 18y + 10z = 500$.
+Subtracting the two equations, have $15x + 8y = 240$.
+This has solutions in the form $x = 16 + 8t$, $y = -15t$.
+Since the $x, y \in \Z^+$, must have $t = -1$.
+So, we know $x = 8$, $y = 15$.
+From the first equation we can get $z = 3$.
+
+% 9
+\subsection{}
+The following problem first appeared in an Indian book written about 850 AD.
+Three merchants found a purse along the way. One of them said, "If I secure
+this purse, I shall become twice as rich as both of you with your money on
+hand." Then the second said, "I shall become thrice as rich as both of you."
+The third man said, "I shall become five times as rich as both of you."
+How much did each merchant have, and how much was in the purse?\\~\\
+Denoting the money in the purse as $p$ and the capital of each merchant
+as $x, y, z$, the solutions must satisfy:
+\begin{align}
+    x + p = 2(y + z)\\
+    y + p = 3(x + z)\\
+    z + p = 5(x + y)
+\end{align}
+Subtracting the first two equations, have $x - y = -3x + 2y - z$,
+which in turn can be written as $z = -4x + 3y$.
+Can plug this into the third equation to get $p = 9x + 2y$.
+So now have
+\begin{align}
+    5x = z\\
+    3x = y\\
+    p = 15x
+\end{align}
+So if $x = 1$, then $y = 3$, $z = 5$, and $p = 15$.
+But we could also have $p = 30$, $x = 2$, $y = 6$, and $z = 10$.
+In fact can set any $x \in \Z^+$ to solve.
+
+% 10
+\subsection{}
+A man cashes a check for $d$ dollars and $c$ cents at a bank.
+Assume that the teller by mistake gives the man $c$ dollars and $d$ cents.
+Assume that the man does not notice the error until he has spent 23 cents.
+Assume further that he then notices that he has $2d$ dollars and $2c$ cents.
+Assume still further that he asks you what amount the check was for.
+Assuming that you can accept all the assumptions, what is the answer?\\~\\
+
+The man was given some amount (in cents) that can be written as $100c + d$.
+Furthermore, we know $100c + d - 23 = 100(2d) + 2c$.
+Rewriting, have $98c - 199d = 23$.
+A solution to this is $c = 51, d = 25$.
+So, the original amount given at the bank was \$25.51.
+
+\end{document}
+EOF

@@ -1,0 +1,308 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+\begin{document}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\title{4. Congruences}
+\section{Exercises}
+
+% 1
+\subsection{}
+True or false? $91 \equiv 0 \Mod{7}$. $3 + 5 + 7 \equiv 5 \Mod{10}$.
+$-2 \equiv 2 \Mod{8}$. $11^2 \equiv 1 \Mod{3}$.\\~\\
+True. True. False. True.
+
+% 2
+\subsection{}
+Complete the proof.\\~\\
+Then we can write $km = a - b$, implying $m|(a - b)$, which is the condition
+for $a \equiv b \Mod{m}$.
+
+% 3
+\subsection{}
+To what least residue $\Mod{11}$ is each of 23, 29, 31, 37 and 41 congruent?\\~\\
+1, 7, 9, 4, 8.
+
+% 4
+\subsection{}
+Say "n is odd" in three other ways.\\~\\
+$n \equiv 1 \Mod{2}$. $\exists q \ni n = 2q + 1$. $2|(n - 1)$.
+
+% 5
+\subsection{}
+Prove that $p|a$ iff $a \equiv 0 \Mod{p}$.\\~\\
+First prove $a \equiv 0 \Mod{p} \Rightarrow p|a$.
+$a \equiv 0 \Mod{p} \Rightarrow p|(a - 0) \Rightarrow p|a$.
+Now prove the converse, $p|a \Rightarrow a \equiv 0 \Mod{p}$.
+$p|a \Rightarrow \exists k \ni pk = a = a - 0$.
+So, by definition, $a \equiv 0 \Mod{p}$.
+
+% 6
+\subsection{}
+Prove parts \textbf{(a)}, \textbf{(b)}, \textbf{(c)}, \textbf{(d)}.\\~\\
+\textbf{(a)} $a \equiv a \Mod{m}$.
+If this is so, then $m|a - a$, or $m|0$.
+This is true for any $m$, since $0m = 0$.\\
+\textbf{(b)} If $a \equiv b \Mod{m}$, then $b \equiv a \Mod{m}$.
+$a \equiv b \Mod{m} \Rightarrow \exists k \ni km = a - b$.
+If we multiply both sides of the equation by $-k$, have $-km = b - a$.
+So, $m|(b - a)$, which is equivalent to $b \equiv a \Mod{m}$.\\
+\textbf{(c)} If $a \equiv b \Mod{m}$ and $b \equiv c \Mod{m}$,
+then $a \equiv c \Mod{m}$.
+The first statement implies $m|(a - b)$, the second that $m|(b - c)$.
+Since $m|k_1 \land m|k_2 \Rightarrow m|(k_1 + k_2)$,
+we know that $m|a - b + b - c$, or in other words, $m|(a - c)$.\\
+\textbf{(d)} If $a \equiv b \Mod{m}$ and $c \equiv d \Mod{m}$,
+then $a + c \equiv b + d \Mod{m}$.
+Know $m|(a - b)$ and $m|(c - d)$.
+Adding the two, get $m|(a - b + c - d)$,
+which can be written as $m|(a + c) - (b + d)$.
+
+% 6
+\subsection{}
+Construct a counterexample for
+$ab \equiv ac \Mod{m} \land a \not\equiv 0 \Mod{m} \Rightarrow b \equiv c \Mod{m}$
+for modulus 10.\\~\\
+$5 * 3 \equiv 5 * 5 \Mod{10}$, but $3 \not\equiv 5 \Mod{10}$.
+
+% 7
+\subsection{}
+What values of $x$ satisfy
+\begin{equation*}
+    (a)\; 2x \equiv 4 \Mod{7} \, ? \quad
+    (b)\; 2x \equiv 1 \Mod{7} \, ?
+\end{equation*}
+\textbf{(a)} $x = 2 \Mod{7}$.\\
+\textbf{(b)} $x = 4 \Mod{7}$.
+
+% 8
+\subsection{}
+What $x$ will satisfy $2x \equiv 4 \Mod{6}$?\\~\\
+$x = 2 \Mod{3}$.
+
+\section{Problems}
+
+% 1
+\subsection{}
+Find the least residue of $1492 \Mod{4}$, $\Mod{10}$, and $\Mod{101}$.\\~\\
+0, 2, 78.
+
+% 2
+\subsection{}
+Find the least residue of $1789 \Mod{4}$, $\Mod{10}$, and $\Mod{101}$.\\~\\
+1, 9, 72.
+
+% 3
+\subsection{}
+Prove or disprove that if $a \equiv b \Mod{m}$, then $a^2 \equiv b^2 \Mod{m}$.\\~\\
+In order for this to be true, $m|(a^2 - b^2)$, or equivalently, $m|(a - b)(a + b)$.
+That $m|(a - b)$ is a given, so $a^2 \equiv b^2 \Mod{m}$.
+
+% 4
+\subsection{}
+Prove or disprove that if $a^2 \equiv b^2 \Mod{m}$, then $a \equiv b$ or $-b \Mod{m}$.\\~\\
+Like in the previous exercise, we know that $m|(a - b)(a + b)$.
+This is only possible if at least one of $m|(a - b)$ or $m|(a + b)$ is true.
+$m|(a - b) \Rightarrow a \equiv b \Mod{m}$ and
+$m|(a + b) \Rightarrow a \equiv -b \Mod{m}$.
+
+% 5
+\subsection{}
+Find all $m$ such that $1066 \equiv 1776 \Mod{m}$.\\~\\
+By definition, these are all $m \ni m|710$.
+From the prime decomposition, we know $710 = 2 * 5 * 71$.
+So, all combinations of $2^{a_1} * 5^{a_2} * 71^{a_2}$, $a_i \in \{0, 1\}$
+have this property: $m \in \{1, 2, 5, 71, 10, 142, 355, 710\}$.
+
+% 6
+\subsection{}
+Find all $m$ such that $1848 \equiv 1914 \Mod{m}$.\\~\\
+By definition, these are all $m \ni m|66$.
+From the prime decomposition, we know $710 = 2 * 3 * 11$.
+So, all combinations of $2^{a_1} * 3^{a_2} * 11^{a_2}$, $a_i \in \{0, 1\}$
+have this property: $m \in \{1, 2, 3, 11, 6, 22, 33, 66\}$.
+
+% 7
+\subsection{}
+If $k \equiv 1 \Mod{4}$, then what is $6k + 5$ congruent to $\Mod{4}$?\\~\\
+3.
+
+% 8
+\subsection{}
+Show that every prime (except 2) is congruent to 1 or $3 \Mod{4}$.\\~\\
+Assume $\exists p \neq 2$ such that $p$ is prime and $p$ not congruent to 1 or 3.
+By \textbf{Theorem 2}, we know that this means $p$ must be congruent to 0 or 2.
+If $p \equiv 0 \Mod{4}$, then $4|p$, and since $4$ is not prime, neither is $p$.
+If $p \equiv 2 \Mod{4}$, then $4|p - 2$.
+For this to be true, $p$ must be even.
+If $p$ is even and not 2, then $p$ is not prime.
+
+% 9
+\subsection{}
+Show that every prime (except 2 or 3) is congruent to 1 or $5 \Mod{6}$.\\~\\
+Assume $\exists p \not\in \{2, 3\}$ such that $p$ is prime and $p$ not congruent to 1 or 5.
+By \textbf{Theorem 2}, we know that this means $p$ must be congruent to 0, 2, 3, or 4.
+If $p \equiv 0 \Mod{6}$, then $6|p$, and since $6$ is not prime, neither is $p$.
+If $p$ congruent to 2 or $4 \Mod{6}$, then $p$ must be even, and thus not prime.
+If $p$ congruent to $3 \Mod{6}$, then $6|p - 3$.
+If $\exists k \ni 6k = p - 3$, then $p = 6k + 3$, meaning $3|p$.
+Since we know $p \neq 3$, this means $p$ is not prime.
+
+% 10
+\subsection{}
+What can primes (except 2, 3, or 5) be congruent to $\Mod{30}$?\\~\\
+As observed in the previous exercises, $p \equiv k \Mod{30} \Rightarrow (30 - k)|p$.
+If 30 and $k$ have a common divisor $j$, we can write $j(30/j - k/j)|p$,
+meaning $j|p$ and $p$ is not prime.
+Such $j$ must be all $j \in [1, 29] \ni x|j, x \in \{2, 3, 5\}$
+(we can exclude the trivial $k = 0$ case).
+So, the $k$ that remain are $k \in \{1, 7, 11, 13, 17, 19, 23, 29\}$.
+
+% 11
+\subsection{}
+In the multiplication $31415 * 92653 = 2910\;93995$, one digit in the product is
+missing and all the others are correct.
+Find the missing digit without doing the multiplication.\\~\\
+$31415 * 92653 \equiv (3 + 1 + 4 + 1 + 5)(9 + 2 + 6 + 5 + 3)
+\equiv 14 * 25 \equiv (1 + 4)(2 + 5) \equiv 35 \equiv 8 \Mod{9}.$\\
+$291093995 \equiv 2 + 9 + 1 + 0 + 9 + 3 + 9 + 9 + 5 \equiv 47 \equiv 2 \Mod{9}$.\\
+For the equation to work, the missing digit must be 6.
+
+% 12
+\subsection{}
+Show that no square has as its last digit 2, 3, 7, or 8.\\~\\
+For a number $k^2$ to have as its last digit $j$, we must have $k^2 \equiv j \Mod{10}$.
+Every $k \in \Z$ must have a least residue $\in [0, 9]$.
+$0^2 \equiv 0, 1^2 \equiv 1, 2^2 \equiv 4, 3^2 \equiv 9, 4^2 \equiv 6, 5^2 \equiv 5,
+6^2 \equiv 6, 7^2 \equiv 9, 8^2 \equiv 4, 9^2 \equiv 1 \Mod{10}$.
+None of these residues $\in \{2, 3, 7, 8\}$.
+
+% 13
+\subsection{}
+What can the last digit of a fourth power be?\\~\\
+Analogously to the previous exercise:\\
+$0^4 \equiv 0, 1^4 \equiv 1, 2^4 \equiv 6, 3^1 \equiv 1, 4^4 \equiv 6, 5^4 \equiv 5,
+6^4 \equiv 6, 7^4 \equiv 1, 8^4 \equiv 6, 9^4 \equiv 1 \Mod{10}$.\\
+This implies that the last digit of a fourth power can be 0, 1, 5, or 6.
+
+% 14
+\subsection{}
+Show that the difference of two consecutive cubes is never divisible by 3.\\~\\
+Can write the consecutive cubes as $k^3$, $(k + 1)^3 = k^3 + 3k^2 + 3k + 1$.
+So, the difference between the two is $3k^2 + 3k + 1 \equiv 1 \Mod{3}$.
+
+% 15
+\subsection{}
+Show that the difference of two consecutive cubes is never divisible by 5.\\~\\
+Can write the difference between two cubes as $3k^2 + 3k + 1 = 3k^2 + 3k + (5 - 4)$.
+For this to be divisible by 5, $3k^2 + 3k + 5 \equiv 3k^2 + 3k \equiv 4 \Mod{5}$.
+We know that any $k$ has to be $\equiv j \Mod{5}, j \in [0, 4]$.
+Consider all the possible congruences of $3k^2 + 3k$:
+\begin{gather*}
+    3 * 0^2 + 3 * 0 \equiv 0, \quad 3 * 1^2 + 3 * 1 \equiv 1, \quad
+    3 * 2^2 + 3 * 2 \equiv 3, \\
+    3 * 3^2 + 3 * 3 \equiv 1, \quad 3 * 4^2 + 3 * 4 \equiv 3 \Mod{5}
+\end{gather*}
+Since none of these are $\equiv 4 \Mod{5}$, we've shown $5 \nmid (k + 1)^3 - k^3$.
+
+% 16
+\subsection{}
+Show that
+\begin{equation*}
+    d_k10^k + d_{k-1}10^{k-1} + ... + d_110 + d_0
+    \equiv d_0 - d_1 + d_2 - d_3 + ... + (-1)^kd_k \Mod{11}
+\end{equation*}
+and deduce a test for divisibility by 11.\\~\\
+Subtracting the right from the left side:
+\begin{equation*}
+    (d_0 - d_0) + (10 + 1)d_1 + (10^2 - 1)d_2 + ... + (10^k + (-1)^k)d_k
+\end{equation*}
+This will be divisible by 11 as long as $11|(10^k + 1)$ for odd $k$
+and $11|(10^k - 1)$ for even $k$.
+Equivalently, can write $10^k \equiv 10 \Mod{11}$ for odd $k$,
+$10^k \equiv 1 \Mod{11}$ for even $k$.
+From the first, we know $10^k - 10 = 10(10^{k - 1} - 1) \equiv 0 \Mod{11}$.
+Since $11 \nmid 10$, it must be that $11|(10^{k - 1} - 1)$, with $k - 1$ even.
+From the second, we have $10^k - 1 \equiv 0 \Mod{11}$.
+So, all we need to show is that $11|10^k - 1$,
+or equivalently, $10^k \equiv 1 \Mod{11}$ for even $k$.
+We can show by inspection that this works for $k = 2$ ($10^2 - 1 = 99$).
+Assume the property holds for all $k \leq r$ for some even $r$.
+Now examine $r + 2$.
+$10^{r + 2} = 100*10^r \equiv 100 \equiv 1 \Mod{11}$.\\~\\
+The test for divisibility is as follows:
+starting from the right digit, alternate between subtracting and adding the
+digits to its left.
+If the result is divisble by 11 (can iterate until 0), then the number is divisible by 11:
+\begin{equation*}
+    121 \longrightarrow 1 - 2 + 1 = 0 \Rightarrow 11|121
+\end{equation*}
+\begin{equation*}
+    2357947691 \longrightarrow
+    1 - 9 + 6 - 7 + 4 - 9 + 7 - 5 + 3 - 2 = -11 \Rightarrow 11|2357947691
+\end{equation*}
+
+% 17
+\subsection{}
+\textit{A} says, "27,182,818,284,590,452 is divisible by 11."
+\textit{B} says, "No, it isn't." Who is right?\\~\\
+Using our divisibility rule,
+\begin{equation*}
+    2 - 5 + 4 - 0 + 9 - 5 + 4 - 8 + 2 - 8 + 1 - 8 + 2 - 8 + 1 - 7 + 2 = -22 = -2 * 11
+\end{equation*}
+\textit{A} is correct.
+
+% 18
+\subsection{}
+A \textit{palindrome} is a number that reads the same backward as forward.
+Examples are 22, 1331, and 935686539.\\
+\textbf{(a)} Prove that every four-digit palindrome is divisible by 11.
+\textbf{(b)} What about six-digit palindromes?\\~\\
+\textbf{(a)}
+Four-digit palindromes can be written as $d_0 d_1 d_1 d_0$,
+with $d_i$ representing the number's digits.
+Applying our divisibility rules, we get $d_0 - d_1 + d_1 - d_0 = 0$,
+which is divisible by 11.
+Therefore, the original four-digit number was as well.
+\textbf{(b)}
+Six-digit palindromes can be written as $d_0 d_1 d_2 d_2 d_1 d_0$,
+Applying our divisibility rules, we get
+$d_0 - d_1 + d_2 - d_2 + d_1 - d_0 = 0$, therefore also divisible by 11.
+
+% 19
+\subsection{}
+Show that if $n \equiv 4 \Mod{9}$, then $n$ cannot be written as the sum of
+three cubes.\\~\\
+Write $n = a^3 + b^3 + c^3 \equiv 4 \Mod{9}$.
+Consider the possible values of $x^3 \Mod{9}$:
+\begin{gather*}
+    0^3 \equiv 0, \quad 1^3 \equiv 1, \quad 2^3 \equiv 8, \\
+    3^3 \equiv 0, \quad 4^3 \equiv 1, \quad 5^3 \equiv 8, \\
+    6^3 \equiv 0, \quad 7^3 \equiv 1, \quad 8^3 \equiv 8
+\end{gather*}
+There is no way to sum any 3 numbers $\in {0, 1, 8}$ such that
+the sum is $\equiv 4 \Mod{9}$.
+
+% 20
+\subsection{}
+Show that for $k > 0$ and $m \geq 1$, $x \equiv 1 \Mod{m^k}$ implies
+$x^m \equiv 1 \Mod{m^{k+1}}$.\\~\\
+We can rewrite $x \equiv 1 \Mod{m^k}$ as $x = qm^k + 1$, for some $q$.
+Taking both sides to the $m^{th}$ power, get
+$x^m = (qm^k + 1)^m = \Sigma_{i=0}^m {m \choose i} (qm^k)^i$.
+By inspection, all terms of this equation where $i \geq 2$ will be divisible by
+$m^{k+1}$, since all $\forall k \in \Z^+, \; 2k \geq k + 1$.
+Consider the $i = 1$ term, ${m \choose 1} (qm^k) = mqm_k = qm^{k + 1}$.
+So, if we subtract 1 from this equation, all terms are divisbly by $m^{k+1}$.
+Thus, $x^m \equiv 1 \Mod{m^{k+1}}$.
+
+\end{document}
+EOF
