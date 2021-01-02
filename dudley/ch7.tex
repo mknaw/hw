@@ -1,0 +1,330 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+\begin{document}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\s}{\sigma}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\title{6. Fermat's and Wilson's Theorems}
+\section{Exercises}
+
+% 1
+\subsection{}
+Verify that the table is correct as far as it goes, and complete it.
+\begin{align*}
+    d(11) &= 2\\
+    d(12) &= 6\\
+    d(13) &= 2\\
+    d(14) &= 4\\
+    d(15) &= 4\\
+    d(16) &= 5
+\end{align*}
+
+% 2
+\subsection{}
+What is $d(p^3)$ Generalize to $d(p^n), n = 4, 5, ...$.\\~\\
+$p^3 = p * p * p$ must be divisible by 1, $p$, $p^2$ and $p^3$, so 4.
+$d(p^n) = n + 1$.
+
+% 3
+\subsection{}
+What is $d(p^3q)$? What is $d(p^nq)$ for any positive $n$?\\~\\
+$p^3q$ is divisble by 1, $p$, $p^2$, $p^3$, $q$, $pq$, $p^2q$, $p^3q$, so $d(p^3q) = 7$.
+For $p^nq$, we'll have divisors of 1, $q$, $n$ terms of $p^k$, and $n$ terms of
+$p^kq$, so $d(p^nq) = 2(n + 1)$.
+
+% 4
+\subsection{}
+Calculate $d(240)$.\\~\\
+$d(240) = d(2^4)*d(3)*d(5) = 5 * 2 * 2 = 20$.
+
+% 5
+\subsection{}
+Verify that the following table is correct as far as it goes, and complete it.
+\begin{align*}
+    \s(9) &= 13\\
+    \s(10) &= 18\\
+    \s(11) &= 12\\
+    \s(12) &= 28\\
+    \s(13) &= 14\\
+    \s(14) &= 24\\
+\end{align*}
+
+% 6
+\subsection{}
+What is $\s(p^3)$? $\s(pq)$, where $p$ and $q$ are different primes?\\~\\
+$\s(p^3) = 1 + p + p^2 + p^3$. $\s(pq) = 1 + p + q + pq$.
+
+% 7
+\subsection{}
+Show that $\s(2^n) = 2^{n + 1} - 1$.\\~\\
+$\s(2^n) = 1 + 2 + ... + 2^n$, so
+$2\s(2^n) - \s(2^n) = \s(2^n) = 2^{n + 1} - 1$.
+
+% 8
+\subsection{}
+What is $\s(p^n)$, $n = 1, 2, ...$?\\~\\
+$\s(p^n) = 1 + p + ... + p^n$, or, using a well-known alternate defintion for
+a geometric series, $\s(p^n) = \frac{p^{n + 1} - 1}{p - 1}$.
+
+% 9
+\subsection{}
+Calculate $\s(240)$.\\~\\
+$\s(240) = \s(2^4)*\s(3)*\s(5) = (1 + 2 + 4 + 8 + 16)(1 + 3)(1 + 5) = 744$.
+
+% 10
+\subsection{}
+Compute $f(n)$ for $n = 13, 14, ..., 24$.
+\begin{gather*}
+    f(13) = 1, \quad f(14) = 1\\
+    f(15) = 1, \quad f(16) = 32\\
+    f(17) = 1, \quad f(18) = 6\\
+    f(19) = 1, \quad f(20) = 4\\
+    f(21) = 1, \quad f(22) = 1\\
+    f(23) = 1, \quad f(24) = 12
+\end{gather*}
+
+\section{Problems}
+
+% 1
+\subsection{}
+Calculate $d(42)$, $\s(42)$, $d(420)$, and $\s(420)$.\\~\\
+$d(42) = d(2)*d(3)*d(7) = 8$.\\
+$\s(42) = \s(2)*\s(3)*\s(7) = 3 * 4 * 8 = 96$.\\
+$d(420) = d(2^2)*d(3)*d(5)*d(7) = 24$.\\
+$\s(420) = \s(2^2)*\s(3)*\s(5)*\s(7) = 7 * 4 * 6 * 8 = 1344$.
+
+% 2
+\subsection{}
+Calculate $d(540)$, $\s(540)$, $d(5400)$, and $\s(540)$.\\~\\
+$d(540) = d(2^2)*d(3^3)*d(5) = 3 * 4 * 2 = 24$.\\
+$\s(540) = \s(2^2)*\s(3^3)*\s(5) = 7 * 34 * 6 = 1428$.\\
+$d(5400) = d(2^3)*d(3^3)*d(5^2) = 4 * 4 * 3 = 48$.\\
+$\s(5400) = \s(2^3)*\s(3^3)*\s(5^2) = 15 * 34 * 31 = 15810$.\\
+
+% 3
+\subsection{}
+Calculate $d$ and $\s$ of $10115 = 5 * 7 * 17^2$ and $100115 = 5 * 20023$.\\~\\
+$d(10115) = d(5)*d(7)*d(17^2) = 2 * 2 * 3 = 12$.\\
+$\s(10115) = \s(5)*\s(7)*\s(17^2) = 6 * 8 * 307 = 14736$.\\
+$d(100115) = d(5)*d(20023) = 2 * 2 = 4$.\\
+$\s(100115) = \s(5)*\s(20023) = 6 * 20024 = 120144$.
+
+% 4
+\subsection{}
+Calculate $d$ and $\s$ of $10116 = 2^2 * 3^2 * 281$ and $100116 = 2^2 * 3^5 * 103$.\\~\\
+$d(10116) = d(2^2)*d(3^2)*d(281) = 3 * 3 * 2 = 18$.\\
+$\s(10116) = \s(2^2)*\s(3^2)*\s(281) = 7 * 13 * 282 = 25662$.\\
+$d(100116) = d(2^2)*d(3^5)*d(103) = 3 * 6 * 2 = 36$.\\
+$\s(100116) = \s(2^2)*\s(3^5)*\s(103) = 7 * 286 * 104 = 208208$.\\
+
+% 5
+\subsection{}
+Show that $\s(n)$ is odd if $n$ is a power of two.\\~\\
+Can write $\s(n) = \s(k^2) = 1 + k + k^2$.
+If $k$ is even, then $k^2$ is even, and $1 + k + k^2$ is odd.
+If $k$ is odd, then $k^2$ is odd, $k + k^2$ is even, and $1 + k + k^2$ is odd.
+
+% 6
+\subsection{}
+Prove that if $f(n)$ is multiplicative, then so is $f(n)/n$.\\~\\
+If $f(n)$ is multiplicative, then $f(n) = f(p_1^{e_1})f(p_1^{e_1})...f(p_1^{e_1})$
+with $n = p_1^{e_1}*p_2^{e_2}*...*p_k^{e_k}$.
+So, $f(n)/n =
+\frac{f(p_1^{e_1})f(p_2^{e_2})...f(p_k^{e_k})}{p_1^{e_1}*p_2^{e_2}*...*p_k^{e_k}}
+= \frac{f(p_1^{e_1})}{p_1^{e_1}}*\frac{f(p_2^{e_2})}{p_2^{e_2}}
+*...*\frac{f(p_k^{e_k})}{p_k^{e_k}}$.
+This implies $f(n)/n$ is multiplicative.
+
+% 7
+\subsection{}
+What is the smallest integer $n$ such that $d(n) = 8$? Such that $d(n) = 10$?\\~\\
+Consider that $8 = 2^3$, so we could have the product of any 3 primes,
+for example $d(2)*d(3)*d(5)$. We also can't have any divisor that is a
+square prime, because $d(p^2) = 3$ and $3 \nmid 8$.
+But, we can have a cubic divisor, since $d(p^3) = 4$,
+and as it turns out, $2 * 2^2 < 2 * 5$, so $24 = 2^3 * 3$ is the smallest such $n$.\\
+For $d(n) = 10$, note that $10 = 2 * 5$.
+To $d(n) = 10$, have to have a $d(k^4)$ somewhere, and it might as well be $2^4$.
+So, the smallest such $n$ is $48 = 2^4 * 3$.
+
+% 8
+\subsection{}
+Does $d(n) = k$ have a solution $n$ for each $k$?\\~\\
+Any $k$ would have at least the solution $n = p^{k - 1}$ for any prime $p$.
+
+% 9
+\subsection{}
+In 1644, Mersenne asked for a number with 60 divisors.
+Find one smaller than 10,000.\\~\\
+Consider that $60 = 2^2 * 3 * 5$.
+So in our number we need at one divisor that is a prime raised to the fourth power,
+and one that is a square.
+So, it would be best to allocate these to the lowest primes, 2 and 3 respectively.
+We could take care of the $2^2$ term with a prime raised to the third power or
+two distinct prime powers.
+Since 5 is the next power and $5^3 > 5 * 7$, we opt for the latter.
+$5040 = 2^4*3^2*5*7$ is such a number.
+
+% 10
+\subsection{}
+Find infinitely many $n$ such that $d(n) = 60$.\\~\\
+For any $n = p^{59}$, $d(n) = 60$.
+Since there are infinitely many primes $p$, there are infinitely many $n = p^{59}$.
+Or you could have infinitely many permutations of the forms $p_1^3*p_2^2*p_3^4$
+or $p_1*p_2*p_3^2*p_4^4$.
+
+% 11
+\subsection{}
+If $p$ is an odd prime, for which $k$ is $1 + p + ... + p^k$ odd?\\~\\
+If $p$ is odd, then any $p^i$ is odd as well.
+Also, any sums pairs like $p^i + p^j$ are even.
+Since we have the $1$ term, we want $p + ... + p^k$ to be even.
+So, we would want to be able to group it into pairs.
+This is possible if $k$ is even.
+
+% 12
+\subsection{}
+For which $n$ is $\s(n)$ odd?\\~\\
+If $n = p^k$ and $k$ even, we have odd $\s(n)$, like in the previous exercise.
+The same could be said for any $k$ if $p = 2$.
+If $n$ cannot be written as a power of a single prime $p$,
+it can still be written as $n = p_1^{e_1}*...*p_k^{e_k}$,
+and $\s(n) = \s(p_1^{e_1})**...*\s(p_k^{e_k})$.
+In order for that product to be odd, each term would have to be odd, i.e.
+each term $p_i^{e_i}$ in the prime-power decomposition of $n$ would either
+require $p_i = 2$ or $2|e_i$.
+
+% 13
+\subsection{}
+If $n$ is a square, show that $d(n)$ is odd.\\~\\
+Write $n = k^2$, then $d(n) = d(k^2) = d((p_1^{e_1}*...*p_k^{e_k})^2) = 
+d(p_1^{2e_1}*...*p_k^{2e_k}) = d(p_1^{2e_1})*...*d(p_k^{2e_k}) =
+(1 + 2e_1)*...*(1 + 2e_k)$.
+Since each term of this product is odd, the whole product is odd.
+
+% 14
+\subsection{}
+If $d(n)$ is odd, show that $n$ is a square.\\~\\
+$d(n) = d(p_1^{e_1}*...*p_k^{e_k}) = d(p_1^{e_1})*...*d(p_k^{e_k}) = 
+(1 + e_1)*...*(1 + e_k)$.
+Since we know $d(n)$ is odd, we know that none of the terms of the product can be
+even, and $e_i$ must be even.
+But, if $e_i$ is even, then it can be written as $2e_i'$,
+and $n$ can be written $p_1^{2e_1'}*...*p_k^{2e_k'} =
+(p_1^{e_1'}*...*p_k^{e_k'})^2$.
+
+% 15
+\subsection{}
+Observe that $1 + 1/3 = 4/3$; $1 + 1/2 + 1/4 = 7/4$;
+$1 + 1/5 = 6/5$; $1 + 1/2 + 1/3 + 1/6 = 15/6$; $1 + 1/7 = 8/7$;
+and $1 + 1/2 + 1/4 + 1/8 = 15/8$.
+Guess and prove a theorem.\\~\\
+$\Sigma_{d|n}1/d = \s(n)/n$.\\
+Consider the sum over the divisors of $n$: $1/1 + 1/d_1 + ... + 1/d_k + 1/n$.
+To perform the addition, we want to have all fractions have the same denominator.
+$n$ is the natural candidate for this, as by definition
+$\exists d_i' \ni d_id_i' = n$.
+Furthermore, the set of these $d_i'$s (call it $D'$) is equivalent to the
+set of $d_i$s ($D$):
+If there were a $d_i'$ that is not in $D$, it would contradict the construction
+of $D$ as the set of all divisors of $n$.
+For $d_i$s, we still know that $d_i' = n/d_i \in D$,
+and thus $\exists d_j' \in D' \ni \frac{n}{d_i}d_j' = n$, namely $d_j' = d_i$.
+So all $d_i$s must be in $D'$ too.
+So, we now have $n/n + d_1'/n + ... + d_k'/n + 1/n = 
+\frac{1}{n}(1 + d_k' + ... + d_1' + n) = \s(n)/n$.
+
+% 16
+\subsection{}
+Find infinitely many $n$ such that $\s(n) \leq \s(n - 1)$.\\~\\
+Consider $n$ that are odd primes.
+By the definition of prime numbers, $\s(n) = 1 + n$.
+Since $n$ is odd, then we know that $n - 1$ must be even,
+thus it must have have 2 among its divisors.
+So, $\s(n - 1) = 1 + 2 + (n - 1) + r$, where $r$ represents the remaining terms
+in the summation and $r > 0$.
+$1 + 2 + (n - 1) + r = 2 + n + r \geq 1 + n$.
+Since there are infinitely many odd primes, there are infinitely many such $n$.
+
+% 17
+\subsection{}
+If $N$ is odd, how many solutions does $x^2 - y^2 = N$ have?\\~\\
+Write $x^2 - y^2 = (x + y)(x - y) = ab = N$.
+The number of divisors of $N$ is $d(N)$, so there are $d(N)$ possible positive
+values for $a$ (with appropriate $b$s) and $d(N)$ negative ones
+(with appropriate negative $b$s).
+The solutions to $x + y = a$, $x - y = b$ are $x = \frac{a + b}{2}$,
+$y = \frac{a - b}{2}$.
+So, should have $2d(N)$ such $(x, y)$.
+The comments say something about $a, b$ needing to be odd to ensure
+unique $(x, y)$ pairs, but I'm not really seeing it!
+
+% 18
+\subsection{}
+Develop a formula for $\s_2(n)$, the sum of the squares of the positive divisors
+of $n$.\\~\\
+Observe that for prime $p$, $\s_2(p^k) = 1 + p^2 + p^4 + ... + p^{2k}
+= 1 + (p^2)^1 + (p^2)^2 + ... + (p^2)^k = \frac{(p^2)^{k+1} - 1}{p^2 - 1}$.
+For primes $p$, $q$, $\s_2(p^kq^j) =
+1 + p^2 + ... + p^{2k} + p^2q^2 + ... + p^2q^{2j}
++ ... + p^{2k}q^2 + ... + p^{2k}q^{2j} + q^2 + ... + q^{2j}
+= (1 + p^2 + ... + p^{2k})(1 + q^2 + ... + q^{2j})
+= \frac{(p^2)^{k+1} - 1}{p^2 - 1}\frac{(q^2)^{q+1} - 1}{q^2 - 1}$.
+So, since any number $n$ can be represented as a prime-power decomposition
+$p_1^{e_1}...p_k^{e_k}$, $\s_2(n) =
+\frac{(p_1^2)^{e_1+1} - 1}{p_1^2 - 1}... \frac{(p_k^2)^{e_k+1} - 1}{p_k^2 - 1}$.
+
+% 19
+\subsection{}
+Guess a formula for
+\begin{equation*}
+    \s_k(n) = \Sigma_{d|n}d^k,
+\end{equation*}
+where $k$ is a positive integer.\\~\\
+By the same logic as before, $\s_k(n) =
+\frac{(p_1^k)^{e_1+1} - 1}{p_1^k - 1}... \frac{(p_k^k)^{e_k+1} - 1}{p_k^k - 1}$.
+
+
+% 20
+\subsection{}
+Show that the product of the positive divisors of $n$ is $n^{d(n)/2}$.\\~\\
+Consider the easy case where $n = p^k$ and denote our product function as $f$.
+We have $f(p^k) = p*p^2*...*p^k = p^{1 + 2 + ... + k}$.
+We are trying to show, for this special case, that
+$p^{1 + 2 + ... + k} = p^{\frac{k}{2}d(p^k)}$,
+or equivalently, $1 + 2 + ... + k = \frac{k}{2}d(p^k)$.
+The sum of consecutive integers on the left side can be written as
+$\frac{k(k + 1)}{2}$.
+We also know that $d(p^k) = k + 1$, making the right side $\frac{k(k + 1)}{2}$,
+so we've shown that the relation holds for the special case of $n = p^k$.
+Now consider $f(p^kq^j) = p...p^k*pq...pq^j*p^kq...p^kq^j*q...q^j$.
+In this product we have 1 term of $p...p^k$ with no $q$ terms,
+and $j$ terms of $p...p^k$ with terms $\in \{q, ..., q^j\}$.
+So we have $j + 1$ terms of $p...p^k$ and, symmetrically,
+$k + 1$ terms of $q...q^j$.
+Knowing that $p...p^k = f(p^k) = (p^k)^{d(p^k)/2}$ and that
+$k + 1 = d(p^k), j + 1 = d(q^j)$, can write
+$f(p^kq^j) = (p^k)^{\frac{1}{2}d(q^j)d(p^k)}(q^j)^{\frac{1}{2}d(q^j)d(p^k)}
+= (p^kq^j)^{\frac{1}{2}d(q^j)d(p^k)} = (p^kq^j)^{\frac{1}{2}d(p^kq^j)}$
+Assume that $f$ is multiplicative up to $r$ for composite numbers
+that can be written $p_1^{e_1}...p_k^{e_r}$.
+Observe that for $f(p_1^{e_1}...p_k^{e_r}p_{r+1}^{e_{r+1}})$,
+we can apply similar logic as we did for $p^kq^j$,
+namely that there will be $e_{r+1} + 1 = d(p_{r+1}^{e_{r+1}})$
+terms of $f(p_1^{e_1}...p_k^{e_r})$ and $d(p_1^{e_1}...p_k^{e_r})$
+terms of $f(p_{r+1}^{e_{r+1}})$, and we can extract the common exponent
+$d(p_1^{e_1}...p_k^{e_r}p_{r+1}^{e_{r+1}})/2$.
+Since any number can be written as such a prime-power decomposition,
+$f(n) = n^{d(n)/2}$.
+
+
+\end{document}
+EOF
