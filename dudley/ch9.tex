@@ -1,0 +1,371 @@
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+\begin{document}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\s}{\sigma}
+\newcommand{\p}{\phi}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+
+\title{8. Euler's Theorem and Function}
+\section{Exercises}
+
+% 1
+\subsection{}
+Show that $a^6 \equiv 1 \Mod{14}$ for all $a$ relatively prime to 14.
+\begin{align*}
+    1^6 &\equiv 1 \Mod{14}\\
+    3^6 &\equiv 1 \Mod{14}\\
+    5^6 &\equiv 1 \Mod{14}\\
+    9^6 \equiv (3^6)^2 &\equiv 1 \Mod{14}\\
+    11^6 &\equiv 1 \Mod{14}\\
+    13^6 &\equiv 1 \Mod{14}
+\end{align*}
+
+% 2
+\subsection{}
+Verify that Lemma 1 is true if $m = 14$ and $a = 5$.
+\begin{align*}
+    5 * 1 &\equiv 5 \Mod{14}\\
+    5 * 3 &\equiv 1 \Mod{14}\\
+    5 * 5 &\equiv 11 \Mod{14}\\
+    5 * 9 &\equiv 3 \Mod{14}\\
+    5 * 11 &\equiv 13 \Mod{14}\\
+    5 * 13 &\equiv 9 \Mod{14}
+\end{align*}
+
+% 3
+\subsection{}
+Verify that $3^{\p(8)} \equiv 1 \Mod{8}$.\\~\\
+$\p(8) = 4$, $3^4 \equiv (3^2)^2 \equiv 1 \Mod{8}$.
+
+% 4
+\subsection{}
+Which positive integers are less than 4 and relatively prime to it?
+What is the answer if 4 is replaced by 8? By 16?
+Can you induce a formula for $\p(2^n), n = 1, 2, ...$?\\~\\
+4: 1, 3.\\
+8: 1, 3, 5, 7.\\
+16: 1, 3, 5, 7, 9, 11, 13, 15.\\
+It will be all odd integers less than $2^n$, since these are the only integers
+with no factor of 2 in their prime decomposition.
+So, $\p(2^n) = 2^n/2 = 2^{n - 1}$.
+
+% 5
+\subsection{}
+Verify that the formula is correct for $p = 5$ and $n = 2$.\\~\\
+Integers less than 25 that are relatively prime to 25:\\
+1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 21, 22, 23, 24.\\
+20 in all. $5^{2 - 1}(5 - 1) = 20$.
+
+% 6
+\subsection{}
+Calculate $\p(74)$, $\p(76)$, and $\p(78)$.\\~\\
+\begin{align*}
+    \p(74) &= \p(2)\p(37) = 1 * 36 = 36\\
+    \p(76) &= \p(2^2)\p(19) = 2 * 18 = 36\\
+    \p(78) &= \p(2)\p(3)\p(13) = 2 * 12 = 24
+\end{align*}
+
+% 6
+\subsection{}
+Calculate $\Sigma_{d|n}\p(d)$\\
+\textbf{(a)} For $n = 12, 13, 14, 15,$ and 16.\\
+\textbf{(b)} For $n = 2^k, k \geq 1$.\\
+\textbf{(c)} For $n = p^k, k \geq 1$ and $p$ an odd prime.\\~\\
+\textbf{(a)} $\{d \ni d|12\} = \{1, 2, 3, 4, 6, 12\}$.
+$\Sigma_{d|n}\p(12) = 1 + 1 + 2 + 2 + 2 + 4 = 12$.\\
+$\{d \ni d|13\} = \{1, 13\}$. $\Sigma_{d|n}\p(13) = 1 + 12 = 13$.\\
+$\{d \ni d|14\} = \{1, 2, 7, 14\}$.
+$\Sigma_{d|n}\p(14) = 1 + 1 + 6 + 6 = 14$.\\
+$\{d \ni d|15\} = \{1, 3, 5, 15\}$.
+$\Sigma_{d|n}\p(15) = 1 + 2 + 4 + 8 = 15$.\\
+$\{d \ni d|16\} = \{1, 2, 4, 8, 16\}$.
+$\Sigma_{d|n}\p(16) = 1 + 1 + 2 + 4 + 8 = 16$.\\
+\textbf{(b)}
+Know that $\{d \ni d|2^k\} = \{1, 2^1, ..., 2^k\}$.
+Also know that $\p(2^k) = 2^{k - 1}$, for $k \geq 1$..
+So, $\Sigma_{d|n}\p(2^k) = 1 + 2^0 + 2^1 + ... + 2^{k - 1}
+= 1 + \frac{2^k - 1}{2 - 1} = 2^k$.\\
+\textbf{(c)}
+Know that $\{d \ni d|p^k\} = \{1, p^1, ..., p^k\}$.
+Also know that $\p(p^k) = p^{k - 1}(p - 1)$.
+So, $\Sigma_{d|n}\p(p^k) = 1 + p^0(p - 1) + p^1(p - 1) + ... + p^{k - 1}(p - 1)
+= 1 + (p - 1)\frac{p^k - 1}{p - 1} = p^k$.
+
+% 7
+\subsection{}
+What are the classes $C_d$ for $n = 14$?
+\begin{align*}
+    C_1 &= \{1, 3, 5, 9, 11, 13\}\\
+    C_2 &= \{2, 4, 6, 8, 10, 12\}\\
+    C_7 &= \{7\}\\
+    C_{14} &= \{14\}
+\end{align*}
+
+\section{Problems}
+
+% 1
+\subsection{}
+Calculate $\p(42)$, $\p(420)$, and $\p(4200)$.
+\begin{align*}
+    \p(42) &= \p(2)\p(3)\p(7) = 1 * 2 * 6 = 12\\
+    \p(420) &= \p(2^2)\p(3)\p(5)\p(7) = 2 * 2 * 4 * 6 = 96\\
+    \p(4200) &= \p(2^3)\p(3)\p(5^2)\p(7) = 4 * 2 * 5 * 4 * 6 = 960
+\end{align*}
+
+% 2
+\subsection{}
+Calculate $\p(54)$, $\p(540)$, and $\p(5400)$.
+\begin{align*}
+    \p(54) &= \p(2)\p(3^3) = 1 * 3^2 * 2 = 18\\
+    \p(540) &= \p(2^2)\p(3^3)\p(5) = 2 * 3^2 * 2 * 4 = 144\\
+    \p(5400) &= \p(2^3)\p(3^3)\p(5^2) = 2^2 * 3^2 * 2 * 4 * 5 = 1440
+\end{align*}
+
+% 3
+\subsection{}
+Calculate $\p$ of $10115 = 5 * 7 * 17^2$ and $100115 = 5 * 20023$.
+\begin{align*}
+    \p(10115) &= \p(5)\p(7)\p(17^2) = 4 * 6 * 17 * 16 = 6528\\
+    \p(100115) &= \p(5)\p(20023) = 4 * 20022 = 80088
+\end{align*}
+
+% 4
+\subsection{}
+Calculate $\p$ of $10116 = 2^2 * 3^2 * 281$ and $100116 = 2^2 * 3^5 * 103$.
+\begin{align*}
+    \p(10116) &= \p(2^2)\p(3^2)\p(281) = 2 * 3 * 2 * 280 = 3360\\
+    \p(100116) &= \p(2^2)\p(3^5)\p(103) = 2 * 3^4 * 2 * 102 = 33048
+\end{align*}
+
+% 5
+\subsection{}
+Calculate $a^8 \Mod{15}$ for $a = 1, 2, ..., 14$.\\~\\
+Since $\p(15) = 8$, know by Euler's Theorem that $a^8 \equiv 1 \Mod{15}$
+for all $a$ for which $(a, 15) = 1$.
+That leaves us with $a \in \{3, 5, 6, 9, 10, 12\}$.
+Consider
+\begin{align*}
+    2 \equiv 2 \Mod{15}\\
+    2^2 \equiv 4 \Mod{15}\\
+    2^4 \equiv 1 \Mod{15}\\
+    3 \equiv 3 \Mod{15}\\
+    3^2 \equiv 9 \Mod{15}\\
+    3^4 \equiv 6 \Mod{15}\\
+    3^6 \equiv 6 \Mod{15}\\
+    3^8 \equiv 6 \Mod{15}\\
+    5 \equiv 5 \Mod{15}\\
+    5^2 \equiv 10 \Mod{15}\\
+    5^4 \equiv 10 \Mod{15}
+\end{align*}
+Can deduce from this that all the $a$ that are by 3 and sometimes 2, i.e.
+$a \in \{3, 6, 9, 12\}$, are $\equiv 6 \Mod{15}$ when raised to the 8th power.
+The $a$ that are divisible by 5 are $\equiv 10 \Mod{15}$ when raised to the 8th power.
+
+
+% 6
+\subsection{}
+Calculate $a^8 \Mod{16}$ for $a = 1, 2, ..., 15$.\\~\\
+Since $\p(16) = 8$, know by Euler's Theorem that $a^8 \equiv 1 \Mod{16}$
+for all the $a$ for which $(a, 16) = 1$, i.e. all the odd $a$.
+All other $a$ can be written $2k$, so $(2k)^8 = 2^42^4k^8$ must be divisble
+by $16 = 2^4$, i.e. $a^8 \equiv 0 \Mod{16}$.
+
+% 7
+\subsection{}
+Show that if $n$ is odd, then $\p(4n) = 2\p(n)$.\\~\\
+If $n$ is odd, then it has no factor of 2 in its prime-power decomposition.
+Since $\p$ is multiplicative, can then write $\p(4n) = \p(2^2)\p(n) = 2\p(n)$.
+
+% 8
+\subsection{}
+Perfect numbers satisfy $\s(n) = 2n$. Which $n$ satisfy $\p(n) = 2n$?\\~\\
+Write $n = p_1^{e_1}...p_k^{e_k}$
+and $\p(n) = n(1 - \frac{1}{p_1})...(1 - \frac{1}{p_k})$.
+Observe that since all $p_i > 1$, the product
+$(1 - \frac{1}{p_1})...(1 - \frac{1}{p_k})$ can't possibly be $\geq 1$,
+let alone 2.
+This makes sense given the definition of $\p$ as the number of positive integers
+less than or equal to $n$ and relatively prime to $n$.
+Since there are only $n - 1$ integers less than or equal to $n$,
+the ceiling of $\p(n)$ is $n - 1$.
+
+% 9
+\subsection{}
+$1 + 2 = (3/2)\p(3), 1 + 3 = (4/2)\p(4), 1 + 2 + 3 + 4 = (5/2)\p(5),
+1 + 5 = (6/2)\p(6), 1 + 2 + 3 + 4 + 5 + 6 = (7/2)\p(7)$, and
+$1 + 3 + 5 + 7 = (8/2)\p(8)$. Guess a theorem.\\~\\
+$\Sigma_{d \ni (d, n) = 1} = (n/2)\p(n)$.
+
+% 10
+\subsection{}
+Show that
+\begin{equation*}
+    \Sigma_{p \leq x} \s(p) - \Sigma_{p \leq x} \p(p) = \Sigma_{p \leq x} d(p)
+\end{equation*}
+Not sure if $p$ is supposed to mean prime $p$, but I think so.
+If so, $\s(p_i) = 1 + p_i$, $\p(p) = p_i - 1$, and $d(p_i) = 2$.
+So $\s(p_i) - \p(p_i) = 2 = d(p_i)$.
+The relationship should hold for the sum as well.
+
+% 11
+\subsection{}
+Prove Lemma 3 by starting with the fact that there are integers $r$ and
+$s$ such that $ar + ms = 1$.\\~\\
+Lemma 3 states: if $(a, m) = 1$ and $a \equiv b \Mod{m}$, then $(b, m) = 1$.
+Per the prompt, multiply the congruence by $r$ to get $ar \equiv br \Mod{m}$.
+We know that $ar \equiv ar + ms \equiv 1 \equiv br \Mod{m}$,
+or, in other words, that $m|br - 1$.
+Assume now that there is an integer $d$ that divides $m$ and $b$.
+Then $d|m$ and $d|br$.
+But if $d|m$, then $d|br - 1$, so it must be that $d|1$.
+
+% 12
+\subsection{}
+If $(a, m) = 1$, show that any $x$ such that
+\begin{equation*}
+    x \equiv ca^{\p(m) - 1} \Mod{m}
+\end{equation*}
+satisfies $ax \equiv c \Mod{m}$.\\~\\
+Know that $a^{\p(m)} \equiv 1 \Mod{m}$.
+Multiply both sides of the congruence to get
+$ax \equiv ca^{\p(m)} \equiv c \Mod{m}$.
+
+% 13
+\subsection{}
+Let $f(n) = (n + \p(n))/2$. Show that $f(f(n)) = \p(n)$ if $n = 2^k$,
+$k = 2, 3, ...$\\~\\
+Know that $\p(2^k) = 2^{k-1}$
+So $f(2^k) = (2^k + 2^{k-1})/2 = 2^{k-2}3$.
+Observe that $\p(3) = 2$, so
+$\p(2^{k-2}*3) = \p(2^{k-2})\p(3) = 2^{k-3} * 2 = 2^{k-2}$.
+So, $f(f(2^k)) = (2^{k-2}3 + 2^{k-2})/2 = 2^{k-2}2 = 2^{k-1} = \p(2^k)$.
+
+% 14
+\subsection{}
+Find four solutions of $\p(n) = 16$.\\~\\
+Can write $\p(n) = p_1^{e_1-1}(p_1-1)...p_k^{e_k-1}(p_k-1)$.
+Notice that $16 = 2^4$, so each term of this product must be a power of 2.
+So, possible $(p_i - 1)$ terms include be $p_i = 3, 5$.
+However, these $p_i$ must have $e_i = 1$, otherwise we have
+$p_i^{e_i-1}$ terms which are not powers of 2.
+So, some possible $n$:
+\begin{align*}
+    n &= 2^5 = 32\\
+    n &= 2^4*3 = 48\\
+    n &= 2^3*5 = 60\\
+    n &= 2^2*3*5 = 60
+\end{align*}
+
+% 15
+\subsection{}
+Find all solutions of $\p(n) = 4$ and prove that there are no more.\\~\\
+Similarly to above, observe that $4 = 2^2$, and relevant primes from which to
+construct the number include 2, 3, and 5.
+We can exclude primes greater than 5 for the construction, since
+$5 - 1 = 2^2$, so for any $p_i > 5, p_i - 1 > 2^2$, which means its not a viable candidate.
+Likewise the $n$ which include factors of 3 and 5 in their prime-power decompositions
+must have these at a factor of 1, for reasons outlined in the previous exercise.
+This leaves us with $n$ of the form $2^{e_2}3^{e_3}5^{e_5}$,
+with $e_2 \in [0, 3]$ and $e_3, e_5 \in [0, 1]$.
+Can enumerate all such $n$ that satisfy $\p(n) = 4$: 5, 8, 10, 12.
+
+% 16
+\subsection{}
+Show that $\p(mn) > \p(m)\p(n)$ if $m$ and $n$ have a common factor greater than 1.\\~\\
+If $m, n$ have a common factor greater than 1, we know that they must share at least
+some of the primes of their prime-power decompositions, whose product
+we denote as $x = p_k^{\overline{e}_k}...p_j^{\overline{e}_j}$.
+Now denote what remains of $m$ and $n$'s prime-power decompositions
+as $m/x = m'$, $n/x = n'$.
+Consider each $p_i$ in the decomposition of $x$.
+It's possible that $p_i$ divides either $m'$ or $n'$, but not both,
+since if it did, we would need to include an additional $p_i$ term in $x$.
+So let's say that for each $p_i$, the $p_i$ factor for one of either $m'$ or $n'$
+is $\overline{e}_i$, and for the other it is $\overline{e}_i + \dot{e}_i$,
+where $\dot{e_i} \geq 0$.
+In $mn$ we must thus have $p_i$ with an exponent of $2\overline{e}_i + \dot{e}_i$.
+In $\p(mn)$, we will have a term $p_i^{2\overline{e}_i + \dot{e}_i - 1}(p_i - 1)$
+associated with $p_i$.
+In $\p(m)\p(n)$, the term associated with $p_i$ is
+$p_i^{\overline{e}_i + \dot{e}_i - 1}p_i^{\overline{e}_i - 1}(p_i - 1)^2
+= p_i^{2\overline{e}_i + \dot{e}_i - 2}(p_i - 1)^2$.
+The ratio of the $p_i$ term in $\p(mn)$ vs. $\p(m)\p(n)$ is
+$p_i/(p_i - 1) > 1$.
+The remaining primes in $m'$ and $n'$'s decompositions do not feature in $x$,
+and are unique between the two.
+So for each of these, the $p_i$ term in $\p(mn)$ is the same as that in $\p(m)\p(n)$.
+
+% 17
+\subsection{}
+Show that $(m, n) = 2$ implies $\p(mn) = 2\p(m)\p(n)$.\\~\\
+Can write $m = 2*p_1^{r_q}...p_k^{r_k}$ and
+$n = 2^{e_2}*q_1^{s_1}...q_k^{s_k}$ with all $p_i$ different from all $q_i$
+(or reverse if $m$ happens to have a higher power of 2 in its decomposition).
+For the $p_i$ and $q_i$'s, $\p(2*p_1^{r_q}...p_k^{r_k}q_1^{s_1}...q_k^{s_k}) = 
+\p(p_1^{r_q}...p_k^{r_k})\p(q_1^{s_1}...q_k^{s_k})$
+For the 2 factor, have an exponent of $e_2 + 1$ in $mn$,
+so in $\p(mn)$ the term associated with 2 is $2^{e_2}(2 - 1) = 2^{e_2}$.
+In $\p(m)\p(n)$, the term associated with 2 is $2^0*1*2^{e_2-1}*1 = 2^{e_2-1}$.
+So, $2\p(m)\p(n) = \p(mn)$.
+
+% 18
+\subsection{}
+Show that $\p(n) = n/2$ if and only if $n = 2^k$ for some positive integer $k$.\\~\\
+If $n = 2^k$, then $\p(n) = 2^{k - 1} = 2^k/2$.
+For the converse, observe that
+$\p(n) = p_1^{e_1-1}(p_1-1)...p_k^{e_k-1}(p_k-1) = p_1^{e_1}...p_k^{e_k}/2$.
+Since $\p(n) \in \Z$, $\p(n) = n/2 \Rightarrow 2|n$, so know we have $p_1 = 2$.
+Furthermore, can write $n/2 = 2^{e_1-1}p_2^{e_2}...p_k^{e_k} =
+2^{e_1-1}(2-1)p_2^{e_2-1}(p_2-1)...p_k^{e_k-1}(p_k-1)$.
+Dropping the $2^{e_1-1}$ term from both sides,
+need $p_2^{e_2-1}(p_2-1)...p_k^{e_k-1}(p_k-1) = p_2^{e_2}...p_k^{e_k}$
+for this equation to hold.
+Note that $p_2^{e_2}...p_k^{e_k}$ must be odd, since it explicitly excludes
+the factor associated with 2.
+But, $p_2^{e_2-1}(p_2-1)...p_k^{e_k-1}(p_k-1)$ must be even, since it contains
+$p_i - 1$ terms.
+So, the only way for this to work if there are no factors than 2 in $n$,
+i.e. if $n = 2^k$.
+
+% 19
+\subsection{}
+Show that if $n - 1$ and $n + 1$ are both primes and $n > 4$,
+then $\p(n) \leq n/3$.\\~\\
+Know that $2|n$, since both $n - 1$ and $n + 1$ odd.
+Also know that $3|n$, because if it did not, it would have to divide one of
+$n - 1$ or $n + 1$, and since $n - 1 \neq 3$ because $n > 4$,
+this would violate $n - 1$, $n + 1$ being prime.
+So can write $n = 2^{e_1}3^{e_2}p_i^{e_i}...$
+and $\p(n) = 2^{e_1-1}*3^{e_2-1}*2*p_i^{e_i-1}(p_i-1)...
+= 2^{e_1}*3^{e_2-1}*p_i^{e_i-1}(p_i-1)...$.
+So $3\p(n) = 2^{e_1}*3^{e_2}*p_i^{e_i-1}(p_i-1)...$.
+If there are no prime factors $p_i$ in $n$ other than 2 and 3,
+then $3\p(n) = n$.
+If there are, clearly each $p_i^{e_i-1}(p_i-1) < p_i*p_i^{e_i-1} = p_i^{e_i}$,
+so $3\p(n) < n$.
+
+% 20
+\subsection{}
+Show that $\p(n) = 14$ is impossible.\\~\\
+Observe that the prime decomposition of $14$ is $2 * 7$
+and $\p(n) = p_1^{e_1-1}(p_1-1)...p_k^{e_k-1}(p_k-1)$.
+None of the $(p_i - 1)$ terms can be 7, since 8 is not a prime.
+For the factor of 2, we could have $2^2|n$ or $3|n$.
+The term in $\p(n)$ that would be associated with the term
+$2^2$ in $n$ is $2^1(2 - 1)$, which is clearly not divisible by 7.
+The term in $\p(n)$ that would be associated with the term
+$3$ in $n$ is $3^0(3 - 1)$, which is also not divisible by 7.
+So, to get the term of 7 in $\p(n)$,
+would need a term of $7^2$ in $n$, but this is associated with a 
+term of $7^1(7 - 1) > 14$.
+
+\end{document}
+EOF
