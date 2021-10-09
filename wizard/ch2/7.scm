@@ -27,15 +27,11 @@ Define a corresponding subtraction procedure, called sub-interval.
 |#
 
 (define (sub-interval x y)
-  (let ((p1 (- (upper-bound x) (lower-bound y)))
-        (p2 (- (lower-bound x) (upper-bound y)))
-        (p3 (- (lower-bound y) (upper-bound x)))
-        (p4 (- (lower-bound y) (upper-bound x))))
-    (make-interval (min p1 p2 p3 p4) (max p1 p2 p3 p4))))
-
-(define (sub-interval x y)
-  (make-interval (- (lower-bound x) (upper-bound y))
-                 (- (lower-bound y) (upper-bound x))))
+  (let ((p1 (- (lower-bound x) (upper-bound y)))
+        (p2 (- (lower-bound y) (upper-bound x)))
+        (p3 (- (upper-bound x) (lower-bound y)))
+        (p4 (- (upper-bound y) (lower-bound x))))
+    (make-interval (min p1 p2) (max p3 p4))))
 
 (define y (make-interval 4 10))
 (sub-interval x y)

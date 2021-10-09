@@ -1,0 +1,221 @@
+\documentclass{article} \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[a4paper,bindingoffset=0.2in,%
+            left=1in,right=1in,top=1in,bottom=1in,%
+            footskip=.25in]{geometry}
+
+\begin{document}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\s}{\sigma}
+\newcommand{\p}{\phi}
+\newcommand{\e}{\equiv}
+\newcommand{\m}[1]{\ (\mathrm{mod}\ #1)}
+
+\title{11. Quadratic Congruences}
+\section{Exercises}
+
+% 1
+\subsection{}
+Check that the theorem gives the right result in this case by applying
+Euler's Criterion and showing that $5^8 \e -1 \m{17}$.
+\begin{align*}
+    5 &\e 5 \m{17}\\
+    5^2 &\e 8 \m{17}\\
+    5^4 &\e 13 \m{17}\\
+    5^8 &\e 16 \e -1 \m{17}
+\end{align*}
+
+% 2
+\subsection{}
+Apply the theorem to determine whether $x^2 \e 7 \m{23}$.\\~\\
+$(23 - 1)/2 = 11$, so have to consider $7, 14, 21, 28, 35, 42, 49, 56,
+63, 70, 77$, which $\m{23}$ are $7, 14, 21, 5, 12, 19, 3, 10, 17, 1, 8$.
+5 of these residues are greater than 11, and as 5 is odd, the congruence
+has no solutions.
+
+% 3
+\subsection{}
+Check the cases $p \e 5 \m{8}$ and $p \e 7 \m{8}$.\\~\\
+For $p \e 5$, $p = 8k + 5$, so $(p + 3)/4$ = $2k + 2$, and the largest integer
+smaller than this is $2k + 1$, so $(2/p) = -1$.
+For $p \e 7$, $p = 8k + 5$, so $(p + 3)/4$ = $2k + 5$, and the largest integer
+smaller than this is $2k + 4$, so $(2/p) = 1$.
+
+% 4
+\subsection{}
+Verify that the lemma is true for $p = 5$ and $q = 7$.
+\begin{gather*}
+    \sum_{k=1}^{(5-1)/2}\left[\frac{7k}{5}\right] +
+    \sum_{k=1}^{(7-1)/2}\left[\frac{5k}{7}\right] =\\
+    \left[\frac{7}{5}\right] + \left[\frac{14}{5}\right] +
+    \left[\frac{5}{7}\right] + \left[\frac{10}{7}\right] +
+    \left[\frac{15}{7}\right] =\\
+    1 + 2 + 0 + 1 + 2 = 6\\
+    \frac{p-1}{2} \cdot \frac{q-1}{2} = 2 \cdot 3 = 6
+\end{gather*}
+
+\section{Problems}
+
+% 1
+\subsection{}
+Adapt the method used in the text to evaluate $(2/p)$ to evaluate $(3/p)$.\\~\\
+Need to figure out how many residues $\m{p}$ of
+$3, 6, 9, ..., 3(\frac{p-1}{2})$ are greater than $\frac{p-1}{2}$.
+Consider the last term, $3(\frac{p-1}{2})$.
+This term will be greater than $p$ for $p > 3$, so will have to subtract some
+multiple of $p$ to obtain its least residue.
+We can ignore $p \leq 3$ as it is trivial to calculate $(3/2) = (1/2) = 1$ and
+$(3/3) = (0/3) = 1$.
+As it turns out, $\frac{3}{2}(p - 1) - p = \frac{p - 3}{2}$, which is smaller
+than $p$.
+So one can obtain the least residues of integers in the sequence that are
+$\geq p$ by subtracting $p$ from them.
+Furthermore, the least residues for these integers are $< \frac{p-1}{2}$.
+So, have to figure out how many integers in the sequence
+$3, 6, ..., 3(\frac{p-1}{2})$ fall between $\frac{p-1}{2}$ and $p$.
+If $3a$ is the smallest integer $\ni 3k > \frac{p-1}{2}$, then $k > \frac{p-1}{6}$.
+If $3k$ is the largest integer $\ni 3k < p$, then $k < \frac{p}{3}$,
+and since $p > 3$ and $3 \nmid p$, we know that this isn't an integer, so can
+consider $k \leq \frac{p-1}{3}$.
+In other words, we are looking for whether the total number of
+$k \ni \frac{p-1}{6} < k \leq \frac{p-1}{3}$ is odd or even.
+First consider $p \e 1 \m{6}$.
+Then $\frac{p-1}{6} = \frac{6x + 1 - 1}{6} = x$, and
+$\frac{p-1}{3} = 2x$.
+The number of $k \ni x < k \leq 2x$ is $x$, about which we cannot say whether it
+is even or odd.
+So, instead consider $p \e 1 \m{12}$.
+Then need $k \ni 2x < k \leq 4x$, of which there are $2x$, an even number.
+For $p \e 5 \m{12}$, need $k \ni 2x < k \leq 4x + 1$, of which there are an odd number.
+For $p \e 7 \m{12}$, need $k \ni 2x + 1 < k \leq 4x + 2$,
+of which there are an odd number.
+For $p \e 11 \m{12}$, need $k \ni 2x + 1 < k \leq 4x + 3$,
+of which there are an even number.
+So $(3/p) = 1$ for $p \e 1, 11 \m{12}$ and $(3/p) = -1$ for $p \e 5, 7 \m{12}$.
+
+% 2
+\subsection{}
+Show that 3 is a quadratic nonresidue of all primes of the form $4^n + 1$.\\~\\
+Let $p = 4^n + 1$. Want to show $(3/p) = -1$.
+Since $p \e 1 \m{4}$, know $(3/p) = (p/3)$.
+Also know that $4^n = 3*4^{n-1} + 4^{n-1}$.
+Know that for $n = 1$, $4^n \e 1 \m{3}$.
+Assume this holds for $n$ up to $r$.
+Examine $4^{r + 1} = 3 * 4^r + 4^r$.
+Since the property holds up to $r$, we know $3*4^r + 4^r \e 1 \m{3}$.
+We have proved by induction that $4^n + 1 \e 2 \m{3}$.
+So $(p/3) = (2/3)$, and since $3 \e 3 \m{8}$, $(p/3) = (2/3) = -1$.
+Combining with $(3/p) = (p/3)$, have $(3/p) = -1$ and 3 a nonresidue of $p$.
+
+% 3
+\subsection{}
+Show that 3 is a quadratic nonresidue of all Mersenne primes greater than 3.\\~\\
+A Mersenne prime can be written $p = 2^n - 1$.
+Know from the previous exercise that $4^n \e 1 \m{3}$, which means that
+for even $n$, $2^n \e 1 \m{3}$.
+Odd $n$ can be written $2k + 1$, so $2^n = 2*4^k \e 2*1 \e 2 \m{3}$.
+Regardless of whether $2^n - 1 \e 0$ or $1$, $(p/3) = 1$.
+Also observe that $p \e 3 \m{4}$, and obviously $3 \e 3 \m{4}$,
+so $(3/p) = -(p/3) = -1$.
+
+% 4
+\subsection{}
+(a) Prove that if $p \e 7 \m{8}$, then $p|(2^{(p-1)/2} - 1)$.\\
+(b) Find a factor of $2^{83} - 1$.\\~\\
+(a) By Euler's criterion, $(2/p) \e 2^{(p-1)/2} \m{p}$.
+Also know that if $p \e 7 \m{8}$, then $(2/p) = 1$.
+So $(2^{(p-1)/2} - 1) \e 0 \m{p}$, or, stated differently,
+$p|(2^{(p-1)/2} - 1)$.\\
+(b) Notice that $2 * 83 + 1 = 167$ is a prime, and $167 \e 7 \m{8}$,
+so we can use the result from above to conclude that 167 is such a factor.
+
+% 5
+\subsection{}
+(a) If $p$ and $q = 10p + 3$ are odd primes, show that $(p/q) = (3/p)$.\\
+(b) If $p$ and $q = 10p + 1$ are odd primes, show that $(p/q) = (-1/p)$.\\~\\
+(a) Know that $q \e 3 \m{p}$, so $(q/p) = (3/p)$.
+If $p \e 3 \m{4}$, then $10p + 3 = 40k + 33 \e 1 \m{4}$.
+So $p$ and $q$ can't both be $\e 3 \m{4}$, thus $(q/p) = (p/q) = (3/p)$.\\
+(b) Know that $(-1/p) = 1$ if $p \e 1 \m{4}$, and $(-1/p) = -1$ if $p \e 3 \m{4}$.
+Also know that $q \e 1 \m{p}$, so $(q/p) = 1$.
+If $p \e 1 \m{4}$, then $(p/q) = (q/p) = 1 = (-1/p)$.
+If $p \e 3 \m{4}$, then $10p + 1 \e 3 \m{4}$, and $(p/q) = -(q/p) = -1 = (-1/p)$.
+
+% 6
+\subsection{}
+(a) Which primes can divide $n^2 + 1$ for some $n$?\\
+(b) Which odd primes can divide $n^2 + n$ for some $n$?\\
+(c) Which odd primes can divide $n^2 + 2n + 2$ for some $n$?\\~\\
+(a) $p|n^2 + 1$ can be rewritten $n^2 \e -1 \m{p}$.
+We know -1 is only a quadratic residue when $p \e 1 \m{4}$.\\
+(b) Notice that for $n = p - 1$, $n^2 + n = p^2 - 2p + 1 + p - 1 \e 0 \m{p}$.
+So, every $p$ can divide $n^2 + n$ for $n = p - 1$.\\
+(c) $n^2 + 2n + 2 = (n + 1)^2 + 1$.
+So again have $(n + 1)^2 = x^2 \e -1 \m{p}$, with -1 a quadratic residue
+when $p \e 1 \m{4}$.
+
+% 7
+\subsection{}
+(a) Show that if $p \e 3 \m{4}$ and $a$ is a quadratic residue $\m{p}$,
+then $p - a$ is a quadratic nonresidue $\m{p}$.\\
+(b) What if $p \e 1 \m{4}$?\\~\\
+(a) Know that $(a/p) = 1$, and we're trying to determine $(p - a/p)$.
+Since $p - a \e -a \m{p}$, can rewrite this as $(-a/p) = 2(-1/p)(a/p) = (-1/p)$.
+Since $p \e 3 \m{4}$, know $(-1/p) = -1$, and thus $p - a$ is a nonresidue.\\
+(b) If $p \e 1$, then $(-1/p) = 1$, and $p - a$ is a quadratic residue.
+
+% 8
+\subsection{}
+If $p > 3$, show that $p$ divides the sum of its quadratic residues that are
+also least residues.\\~\\
+Notice that all quadratic residues of a prime $p$ that are least residues must
+be $\e r^2 \m{p}$ for some $r < p$.
+Conversely, $r^2 \m{p}$ for all $0 < r < p$ are quadratic residues that are
+least residues.
+Furthermore, we know that for a given $r^2 \e (-r)^2 \e (p - r)^2 \m{p}$,
+so we can exclude the duplicate $(p - r)^2$, which are those for
+$r > (p - 1)/2$.
+In other words, if $a_1, ..., a_k$ are all the quadratic residues that are
+also least residues, we know that
+$a_1 + ... + a_k \e 1^2 + 2^2 + ... + ((p - 1)/2)^2 \m{p}$.
+There is a formula for the sum of a sequence of squares:
+$1^2 + 2^2 + ... + n^2 = \frac{n(n + 1)(2n + 1)}{6}$.
+So, with $n = (p - 1)/2$, we know that the sum of squares is equal to
+$p \cdot \frac{p^2 - 1}{24}$, and this must be an integer.
+Since $p$ divides this sum, then $p$ divides the sum of the sequence of squares
+up to $(p - 1)/2$, and since this is equivalent to the sum of quadratic residues
+$\m{p}$, $p$ must divide that sum of quadratic residues as well.
+
+
+% 9
+\subsection{}
+If $p$ is an odd prime, evaluate
+\begin{equation*}
+    (1 \cdot 2/p) + (2 \cdot 3/p) + ... + ((p - 2)(p - 1)/p)
+\end{equation*}
+\textit{TODO}
+
+% 10
+\subsection{}
+Show that if $p \e 1 \m{4}$, then $x^2 \e -1 \m{p}$ has a solution given
+by the least residue $\m{p}$ of $(\frac{p - 1}{2})!$.
+Since $p \e 1 \m{4}$, can write $p = 4k + 1$ and $(p - 1)/2 = 4k/2 = 2k$ is even.
+So, $(-1)^{(p-1)/2} = 1$. Expand $((\frac{p - 1}{2})!)^2$:
+\begin{gather*}
+    \left(\left(\frac{p-1}{2}\right)!\right)^2 =
+    1 \cdot 2 \cdots \left(\frac{p-1}{2}\right) \cdot
+    \left(\frac{p-1}{2}\right) \cdot \left(\frac{p-1}{2} - 1\right)
+    \cdots 1 =\\
+    1 \cdot 2 \cdots \left(\frac{p-1}{2}\right) \cdot
+    \left(p - \left(\frac{p-1}{2} + 1\right)\right) \cdots
+    \left(p - \left(\frac{p-1}{2} + \frac{p-1}{2} - 1\right)\right) \e\\
+    (-1)^{(p-1)/2} \cdot 1 \cdot 2 \cdots \left(\frac{p-1}{2}\right) \cdot
+    \left(\frac{p-1}{2} + 1\right) \cdots (p - 1) \e (p - 1)! \m{p}
+\end{gather*}
+We know from Wilson's theorem that $(p - 1)! \e -1 \m{p}$,
+so $((p-1)/2)!$ is a solution of the quadratic congruence.
+
+
+\end{document}
+EOF
