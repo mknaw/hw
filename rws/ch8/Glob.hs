@@ -34,6 +34,12 @@ namesMatching pat
         ("", baseName) -> do
           curDir <- getCurrentDirectory
           listMatches curDir baseName
+        (dirName, "**") -> do
+          -- It's not really "dirs," but this is from the textbook..
+          dirs <- getDirs dirName
+          dirs' <- filterM doesDirectoryExist dirs
+          subDirs <- mapM listSubdirsRecursive dirs'
+          return (concat subDirs)
         (dirName, baseName) -> do
           dirs <- getDirs dirName
           let listDir = if isPattern baseName
@@ -44,9 +50,6 @@ namesMatching pat
                          return (map (dir </>) baseNames)
           return $ concat pathNames
       where getDirs dir
-              -- TODO this is still bad since it doesn't handle the `/*/foo/**/bar` case
-              | "**/" `isSuffixOf` dir = let dir' = take (length dir - 3) dir
-                                         in listSubdirsRecursive dir'
               | isPattern dir = namesMatching (dropTrailingPathSeparator dir)
               | otherwise     = return [dir]
 

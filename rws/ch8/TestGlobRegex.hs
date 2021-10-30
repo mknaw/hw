@@ -12,6 +12,6 @@ import GlobRegex
 
 main = do
     -- matches <- namesMatching "/Users/mknaw/dev/hw/rws/*/*.hs"
-    matches <- namesMatching "/Users/mknaw/dev/hw/**/*.hs"
+    matches <- namesMatching "/Users/mknaw/dev/*/**/*.hs"
     mapM putStrLn matches
 
