@@ -1,13 +1,14 @@
 module Glob (namesMatching) where
 
 import Control.Exception (handle, SomeException)
-import Control.Monad (forM)
+import Control.Monad (filterM, forM)
+import Data.List (isSuffixOf)
 import GlobRegex (matchesGlob)
 import System.Directory (
       doesDirectoryExist
     , doesFileExist
     , getCurrentDirectory
-    , getDirectoryContents
+    , listDirectory
     )
 import System.FilePath (
       dropTrailingPathSeparator
@@ -34,16 +35,20 @@ namesMatching pat
           curDir <- getCurrentDirectory
           listMatches curDir baseName
         (dirName, baseName) -> do
-          dirs <- if isPattern dirName
-                  then namesMatching (dropTrailingPathSeparator dirName)
-                  else return [dirName]
+          dirs <- getDirs dirName
           let listDir = if isPattern baseName
                         then listMatches
                         else listPlain
           pathNames <- forM dirs $ \dir -> do
                          baseNames <- listDir dir baseName
                          return (map (dir </>) baseNames)
-          return (concat pathNames)
+          return $ concat pathNames
+      where getDirs dir
+              -- TODO this is still bad since it doesn't handle the `/*/foo/**/bar` case
+              | "**/" `isSuffixOf` dir = let dir' = take (length dir - 3) dir
+                                         in listSubdirsRecursive dir'
+              | isPattern dir = namesMatching (dropTrailingPathSeparator dir)
+              | otherwise     = return [dir]
 
 doesNameExist :: FilePath -> IO Bool
 doesNameExist name = do
@@ -59,7 +64,7 @@ listMatches dirName pat = do
               then getCurrentDirectory
               else return dirName
   handle handler $ do
-    names <- getDirectoryContents dirName'
+    names <- listDirectory dirName'
     let names' = if isHidden pat
                  then filter isHidden names
                  else filter (not . isHidden) names
@@ -76,3 +81,12 @@ listPlain dirName baseName = do
             then doesDirectoryExist dirName
             else doesNameExist (dirName </> baseName)
   return [baseName | exists]
+
+listSubdirsRecursive :: String -> IO [String]
+listSubdirsRecursive dirName = do
+    contents <- listDirectory dirName
+    subDirs <- filterM dirFilter contents
+    let subDirs' = filter (not . isHidden) subDirs
+    subContents <- mapM (\d -> listSubdirsRecursive $ dirName </> d) subDirs'
+    return $ dirName : concat subContents
+  where dirFilter d = doesDirectoryExist (dirName </> d)

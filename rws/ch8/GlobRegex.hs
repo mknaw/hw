@@ -15,7 +15,7 @@ globToRegex cs caseSensitive = '^' : globToRegex' cs' ++ "$"
 globToRegex' :: String -> String
 globToRegex' ""             = ""
 
-globToRegex' ('*':'*':cs)       = ".*" ++ (globToRegex' . stripSlashes) cs
+globToRegex' ('*':'*':cs)       = ".*/" ++ (globToRegex' . stripSlashes) cs
 globToRegex' ('*':cs)       = ".*" ++ globToRegex' cs
 globToRegex' ('?':cs)       = '.' : globToRegex' cs
 
